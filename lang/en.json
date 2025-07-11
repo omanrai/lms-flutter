@@ -1,0 +1,7 @@
+{
+  "appTitle": "My App",
+  "welcome": "Welcome",
+  "greeting": "Hello, {name}!",
+  "settings": "Settings",
+  "logout": "Logout"
+}
