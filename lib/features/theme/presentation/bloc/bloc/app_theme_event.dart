@@ -7,9 +7,9 @@ sealed class AppThemeEvent extends Equatable {
   List<Object> get props => [];
 }
 
-class AppThemeChanged extends AppThemeEvent {
-  final ThemeData theme;
-  const AppThemeChanged(this.theme);
+class AppThemeChangedEvent extends AppThemeEvent {
+  final ThemeMode theme;
+  const AppThemeChangedEvent(this.theme);
 
   @override
   List<Object> get props => [theme];

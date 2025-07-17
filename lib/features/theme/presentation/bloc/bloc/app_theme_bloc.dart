@@ -7,12 +7,15 @@ part 'app_theme_event.dart';
 part 'app_theme_state.dart';
 
 class AppThemeBloc extends Bloc<AppThemeEvent, AppThemeState> {
-  AppThemeBloc() : super(AppThemeInitial(AppTheme.lightTheme)) {
+  AppThemeBloc() : super(AppThemeInitial(ThemeMode.light)) {
     on<AppThemeEvent>((event, emit) {});
-    on<AppThemeChanged>(_onAppThemChange);
+    on<AppThemeChangedEvent>(_onAppThemChange);
   }
 
-  void _onAppThemChange(AppThemeChanged event, Emitter<AppThemeState> emit) {
+  void _onAppThemChange(
+    AppThemeChangedEvent event,
+    Emitter<AppThemeState> emit,
+  ) {
     emit(AppThemeInitial(event.theme));
   }
 }

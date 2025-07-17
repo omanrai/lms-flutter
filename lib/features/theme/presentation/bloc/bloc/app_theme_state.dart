@@ -8,10 +8,10 @@ sealed class AppThemeState extends Equatable {
 }
 
 final class AppThemeInitial extends AppThemeState {
-  final ThemeData theme;
+  final ThemeMode themeMode;
 
-  const AppThemeInitial(this.theme);
+  const AppThemeInitial(this.themeMode);
 
   @override
-  List<Object> get props => [theme];
+  List<Object> get props => [themeMode];
 }

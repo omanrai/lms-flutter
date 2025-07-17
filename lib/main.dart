@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localization/flutter_localization.dart';
+import 'package:lms/core/themes/app_theme.dart';
 import 'package:lms/features/language/presentation/bloc/app_language_bloc.dart';
+import 'package:lms/features/login/presentation/pages/login_page.dart';
+import 'package:lms/features/login/presentation/bloc/login_bloc.dart';
 import 'package:lms/features/theme/presentation/bloc/bloc/app_theme_bloc.dart';
+import 'package:lms/injection_container.dart';
 import 'package:lms/l10n/app_localizations.dart';
 
 final FlutterLocalization localization = FlutterLocalization.instance;
@@ -10,11 +14,13 @@ final FlutterLocalization localization = FlutterLocalization.instance;
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await FlutterLocalization.instance.ensureInitialized();
+  await init();
   runApp(
-    MultiBlocListener(
-      listeners: [
-        BlocProvider(create: (_) => AppLanguageBloc()),
-        BlocProvider(create: (_) => AppThemeBloc()),
+    MultiBlocProvider(
+      providers: [
+        BlocProvider(create: (_) => sl<AppLanguageBloc>()),
+        BlocProvider(create: (_) => sl<AppThemeBloc>()),
+        BlocProvider(create: (_) => sl<LoginBloc>()),
       ],
       child: const MyApp(),
     ),
@@ -31,33 +37,25 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<SubjectBloc, SubjectState>(
-      builder: (context, state) {
+    return BlocBuilder<AppThemeBloc, AppThemeState>(
+      builder: (context, themeState) {
+        final currentTheme = themeState is AppThemeInitial
+            ? themeState.themeMode
+            : ThemeMode.light;
         return BlocBuilder<AppLanguageBloc, AppLanguageState>(
-          builder: (context, state) {
+          builder: (context, langState) {
+            final locale = langState is AppLanguageInitialState
+                ? langState.locale
+                : const Locale('en');
             return MaterialApp(
-              title: 'Flutter Localization Demo',
-              locale: (state as AppLanguageInitialState).locale,
+              title: 'Theme Visualizer',
+              locale: locale,
               localizationsDelegates: AppLocalizations.localizationsDelegates,
-              supportedLocales: const [
-                Locale('es'), // Spanish
-                Locale('en'), // English
-              ],
-              theme: ThemeData(
-                colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-              ),
-              themeMode: ThemeMode.dark,
-              darkTheme: ThemeData(
-                colorScheme: ColorScheme.fromSeed(seedColor: Colors.red),
-              ),
-
-              home: MyHomePage(
-                changeLanguage: (locale) {
-                  context.read<AppLanguageBloc>().add(
-                    AppLanguageChangedEvent(locale),
-                  );
-                },
-              ),
+              supportedLocales: const [Locale('es'), Locale('en')],
+              theme: AppTheme.lightTheme,
+              darkTheme: AppTheme.darkTheme,
+              themeMode: currentTheme,
+              home: const LoginPage(),
             );
           },
         );
@@ -66,59 +64,188 @@ class _MyAppState extends State<MyApp> {
   }
 }
 
-class MyHomePage extends StatelessWidget {
-  final Function(Locale) changeLanguage;
-
-  const MyHomePage({super.key, required this.changeLanguage});
+class ThemeVisualizerPage extends StatelessWidget {
+  const ThemeVisualizerPage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final helloText = AppLocalizations.of(context)?.hello ?? "Hola";
+    final colorScheme = Theme.of(context).colorScheme;
+    final textTheme = Theme.of(context).textTheme;
     final currentLocale = Localizations.localeOf(context);
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+    final l10n = AppLocalizations.of(context);
 
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+        title: Text(l10n?.themeVisualizer ?? 'Theme Visualizer'),
+        backgroundColor: colorScheme.primary,
+        foregroundColor: colorScheme.onPrimary,
         actions: [
           IconButton(
+            icon: Icon(isDark ? Icons.light_mode : Icons.dark_mode),
+            onPressed: () => context.read<AppThemeBloc>().add(
+              AppThemeChangedEvent(isDark ? ThemeMode.light : ThemeMode.dark),
+            ),
+          ),
+          IconButton(
             icon: const Icon(Icons.language),
-            onPressed: () {
-              final newLocale = currentLocale.languageCode == 'es'
-                  ? const Locale('en')
-                  : const Locale('es');
-              changeLanguage(newLocale);
-            },
+            onPressed: () => context.read<AppLanguageBloc>().add(
+              AppLanguageChangedEvent(
+                currentLocale.languageCode == 'es'
+                    ? const Locale('en')
+                    : const Locale('es'),
+              ),
+            ),
           ),
         ],
       ),
-      body: Center(
+      body: SingleChildScrollView(
+        padding: const EdgeInsets.all(16),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Text(helloText, style: Theme.of(context).textTheme.headlineMedium),
-            const SizedBox(height: 20),
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            // Color Palette Section
             Text(
-              currentLocale.languageCode == 'es'
-                  ? "Idioma actual: Español"
-                  : "Current language: English",
+              l10n?.colorScheme ?? 'Color Scheme',
+              style: textTheme.headlineSmall,
             ),
-            const SizedBox(height: 20),
+            const SizedBox(height: 16),
+            _buildColorTile(
+              l10n?.primary ?? 'Primary',
+              colorScheme.primary,
+              colorScheme.onPrimary,
+            ),
+            _buildColorTile(
+              l10n?.primaryContainer ?? 'Primary Container',
+              colorScheme.primaryContainer,
+              colorScheme.onPrimaryContainer,
+            ),
+            _buildColorTile(
+              l10n?.secondary ?? 'Secondary',
+              colorScheme.secondary,
+              colorScheme.onSecondary,
+            ),
+            _buildColorTile(
+              l10n?.secondaryContainer ?? 'Secondary Container',
+              colorScheme.secondaryContainer,
+              colorScheme.onSecondaryContainer,
+            ),
+            _buildColorTile(
+              l10n?.surface ?? 'Surface',
+              colorScheme.surface,
+              colorScheme.onSurface,
+            ),
+            _buildColorTile(
+              l10n?.surfaceVariant ?? 'Surface Variant',
+              colorScheme.surfaceVariant,
+              colorScheme.onSurface,
+            ),
+            _buildColorTile(
+              l10n?.background ?? 'Background',
+              colorScheme.background,
+              colorScheme.onBackground,
+            ),
+            _buildColorTile(
+              l10n?.error ?? 'Error',
+              colorScheme.error,
+              colorScheme.onError,
+            ),
+
+            const SizedBox(height: 24),
+
+            // Typography Section
+            Text(
+              l10n?.typography ?? 'Typography',
+              style: textTheme.headlineSmall,
+            ),
+            const SizedBox(height: 16),
+            _buildTextSample('Display Large', textTheme.displayLarge),
+            _buildTextSample('Display Medium', textTheme.displayMedium),
+            _buildTextSample('Headline Small', textTheme.headlineSmall),
+            _buildTextSample('Title Large', textTheme.titleLarge),
+            _buildTextSample('Body Large', textTheme.bodyLarge),
+            _buildTextSample('Body Medium', textTheme.bodyMedium),
+            _buildTextSample('Label Large', textTheme.labelLarge),
+
+            const SizedBox(height: 24),
+
+            // Components Section
+            Text(
+              l10n?.components ?? 'Components',
+              style: textTheme.headlineSmall,
+            ),
+            const SizedBox(height: 16),
             ElevatedButton(
-              onPressed: () {
-                final newLocale = currentLocale.languageCode == 'es'
-                    ? const Locale('en')
-                    : const Locale('es');
-                changeLanguage(newLocale);
-              },
-              child: Text(
-                currentLocale.languageCode == 'es'
-                    ? "Cambiar a inglés"
-                    : "Switch to Spanish",
+              onPressed: () {},
+              child: Text(l10n?.elevatedButton ?? 'Elevated Button'),
+            ),
+            const SizedBox(height: 8),
+            FilledButton(
+              onPressed: () {},
+              child: Text(l10n?.filledButton ?? 'Filled Button'),
+            ),
+            const SizedBox(height: 8),
+            OutlinedButton(
+              onPressed: () {},
+              child: Text(l10n?.outlinedButton ?? 'Outlined Button'),
+            ),
+            const SizedBox(height: 8),
+            TextButton(
+              onPressed: () {},
+              child: Text(l10n?.textButton ?? 'Text Button'),
+            ),
+            const SizedBox(height: 16),
+            SwitchListTile(
+              title: Text(l10n?.switchText ?? 'Switch'),
+              value: true,
+              onChanged: (_) {},
+            ),
+            const SizedBox(height: 8),
+            TextField(
+              decoration: InputDecoration(
+                labelText: l10n?.textField ?? 'Text Field',
+                border: const OutlineInputBorder(),
+              ),
+            ),
+            const SizedBox(height: 16),
+            Card(
+              child: Padding(
+                padding: const EdgeInsets.all(16),
+                child: Text(l10n?.card ?? 'Card', style: textTheme.bodyLarge),
               ),
             ),
           ],
         ),
       ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {},
+        child: const Icon(Icons.add),
+      ),
+    );
+  }
+
+  Widget _buildColorTile(String label, Color color, Color textColor) {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 8),
+      child: Container(
+        width: double.infinity,
+        padding: const EdgeInsets.all(12),
+        decoration: BoxDecoration(
+          color: color,
+          borderRadius: BorderRadius.circular(8),
+        ),
+        child: Text(
+          label,
+          style: TextStyle(color: textColor, fontWeight: FontWeight.bold),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildTextSample(String label, TextStyle? style) {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 8),
+      child: Text(label, style: style),
     );
   }
 }

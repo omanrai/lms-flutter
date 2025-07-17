@@ -6,7 +6,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:intl/intl.dart' as intl;
 
 import 'app_localizations_en.dart';
-import 'app_localizations_es.dart';
+import 'app_localizations_ne.dart';
 
 // ignore_for_file: type=lint
 
@@ -92,7 +92,7 @@ abstract class AppLocalizations {
   /// A list of this localizations delegate's supported locales.
   static const List<Locale> supportedLocales = <Locale>[
     Locale('en'),
-    Locale('es')
+    Locale('ne')
   ];
 
   /// A greeting
@@ -100,6 +100,210 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Hello'**
   String get hello;
+
+  /// Title of the theme visualization screen
+  ///
+  /// In en, this message translates to:
+  /// **'Theme Visualizer'**
+  String get themeVisualizer;
+
+  /// Label showing current language
+  ///
+  /// In en, this message translates to:
+  /// **'Current language: English'**
+  String get currentLanguage;
+
+  /// No description provided for @switchToSpanish.
+  ///
+  /// In en, this message translates to:
+  /// **'Switch to Spanish'**
+  String get switchToSpanish;
+
+  /// No description provided for @lightMode.
+  ///
+  /// In en, this message translates to:
+  /// **'Light Mode'**
+  String get lightMode;
+
+  /// No description provided for @darkMode.
+  ///
+  /// In en, this message translates to:
+  /// **'Dark Mode'**
+  String get darkMode;
+
+  /// No description provided for @colorScheme.
+  ///
+  /// In en, this message translates to:
+  /// **'Color Scheme'**
+  String get colorScheme;
+
+  /// No description provided for @typography.
+  ///
+  /// In en, this message translates to:
+  /// **'Typography'**
+  String get typography;
+
+  /// No description provided for @components.
+  ///
+  /// In en, this message translates to:
+  /// **'Components'**
+  String get components;
+
+  /// No description provided for @primary.
+  ///
+  /// In en, this message translates to:
+  /// **'Primary'**
+  String get primary;
+
+  /// No description provided for @primaryContainer.
+  ///
+  /// In en, this message translates to:
+  /// **'Primary Container'**
+  String get primaryContainer;
+
+  /// No description provided for @secondary.
+  ///
+  /// In en, this message translates to:
+  /// **'Secondary'**
+  String get secondary;
+
+  /// No description provided for @secondaryContainer.
+  ///
+  /// In en, this message translates to:
+  /// **'Secondary Container'**
+  String get secondaryContainer;
+
+  /// No description provided for @surface.
+  ///
+  /// In en, this message translates to:
+  /// **'Surface'**
+  String get surface;
+
+  /// No description provided for @surfaceVariant.
+  ///
+  /// In en, this message translates to:
+  /// **'Surface Variant'**
+  String get surfaceVariant;
+
+  /// No description provided for @background.
+  ///
+  /// In en, this message translates to:
+  /// **'Background'**
+  String get background;
+
+  /// No description provided for @error.
+  ///
+  /// In en, this message translates to:
+  /// **'Error'**
+  String get error;
+
+  /// No description provided for @elevatedButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Elevated Button'**
+  String get elevatedButton;
+
+  /// No description provided for @filledButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Filled Button'**
+  String get filledButton;
+
+  /// No description provided for @outlinedButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Outlined Button'**
+  String get outlinedButton;
+
+  /// No description provided for @textButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Text Button'**
+  String get textButton;
+
+  /// No description provided for @switchText.
+  ///
+  /// In en, this message translates to:
+  /// **'Switch'**
+  String get switchText;
+
+  /// No description provided for @textField.
+  ///
+  /// In en, this message translates to:
+  /// **'Text Field'**
+  String get textField;
+
+  /// No description provided for @card.
+  ///
+  /// In en, this message translates to:
+  /// **'Card'**
+  String get card;
+
+  /// Message shown when user doesn't have an account
+  ///
+  /// In en, this message translates to:
+  /// **'Don\'t have an account?'**
+  String get noAccount;
+
+  /// Registration button text
+  ///
+  /// In en, this message translates to:
+  /// **'Get Started'**
+  String get getStarted;
+
+  /// Application title
+  ///
+  /// In en, this message translates to:
+  /// **'LMS'**
+  String get lmsTitle;
+
+  /// Login page title
+  ///
+  /// In en, this message translates to:
+  /// **'Login'**
+  String get loginTitle;
+
+  /// Login page subtitle
+  ///
+  /// In en, this message translates to:
+  /// **'Free forever. No credit card required'**
+  String get loginSubtitle;
+
+  /// Email input field label
+  ///
+  /// In en, this message translates to:
+  /// **'Email'**
+  String get emailLabel;
+
+  /// Password input field label
+  ///
+  /// In en, this message translates to:
+  /// **'Password'**
+  String get passwordLabel;
+
+  /// Back button text
+  ///
+  /// In en, this message translates to:
+  /// **'Go back'**
+  String get backButton;
+
+  /// Required field validation message
+  ///
+  /// In en, this message translates to:
+  /// **'Required'**
+  String get required;
+
+  /// Email field label
+  ///
+  /// In en, this message translates to:
+  /// **'Email'**
+  String get email;
+
+  /// Submit button text
+  ///
+  /// In en, this message translates to:
+  /// **'Submit'**
+  String get submit;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {
@@ -111,7 +315,7 @@ class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> 
   }
 
   @override
-  bool isSupported(Locale locale) => <String>['en', 'es'].contains(locale.languageCode);
+  bool isSupported(Locale locale) => <String>['en', 'ne'].contains(locale.languageCode);
 
   @override
   bool shouldReload(_AppLocalizationsDelegate old) => false;
@@ -123,7 +327,7 @@ AppLocalizations lookupAppLocalizations(Locale locale) {
   // Lookup logic when only language code is specified.
   switch (locale.languageCode) {
     case 'en': return AppLocalizationsEn();
-    case 'es': return AppLocalizationsEs();
+    case 'ne': return AppLocalizationsNe();
   }
 
   throw FlutterError(

@@ -1,0 +1,79 @@
+{
+  "@@locale": "ne",
+  "hello": "नमस्ते",
+  "themeVisualizer": "थीम भिजुअलाइजर",
+  "currentLanguage": "हालको भाषा: अंग्रेजी",
+  "switchToSpanish": "स्पेनिशमा स्विच गर्नुहोस्",
+  "lightMode": "उज्यालो मोड",
+  "darkMode": "अँध्यारो मोड",
+  "colorScheme": "रंग योजना",
+  "typography": "टाइपोग्राफी",
+  "components": "घटकहरू",
+  "primary": "प्राथमिक",
+  "primaryContainer": "प्राथमिक कन्टेनर",
+  "secondary": "द्वितीयक",
+  "secondaryContainer": "द्वितीयक कन्टेनर",
+  "surface": "सतह",
+  "surfaceVariant": "सतहको प्रकार",
+  "background": "पृष्ठभूमि",
+  "error": "त्रुटि",
+  "elevatedButton": "उच्च बटन",
+  "filledButton": "भरिएको बटन",
+  "outlinedButton": "रेखांकित बटन",
+  "textButton": "टेक्स्ट बटन",
+  "switchText": "स्विच",
+  "textField": "टेक्स्ट फिल्ड",
+  "card": "कार्ड",
+  
+  "noAccount": "खाता छैन?",
+  "getStarted": "सुरु गर्नुहोस्",
+  "lmsTitle": "एलएमएस",
+  "loginTitle": "लगइन",
+  "loginSubtitle": "सदैव निःशुल्क। क्रेडिट कार्ड आवश्यक छैन",
+  "emailLabel": "इमेल",
+  "passwordLabel": "पासवर्ड",
+  "backButton": "पछाडि जानुहोस्",
+  "required": "आवश्यक",
+  "email": "इमेल",
+  "submit": "पेश गर्नुहोस्",
+
+  "@hello": {
+    "description": "एक अभिवादन"
+  },
+  "@themeVisualizer": {
+    "description": "थीम भिजुअलाइजेसन स्क्रिनको शीर्षक"
+  },
+  "@currentLanguage": {
+    "description": "हालको भाषा देखाउने लेबल"
+  },
+  "@noAccount": {
+    "description": "खाता नभएको संदेश"
+  },
+  "@getStarted": {
+    "description": "रजिस्ट्रेशन बटनको टेक्स्ट"
+  },
+  "@lmsTitle": {
+    "description": "एप्लिकेशनको शीर्षक"
+  },
+  "@loginTitle": {
+    "description": "लगइन पृष्ठको शीर्षक"
+  },
+  "@loginSubtitle": {
+    "description": "लगइन पृष्ठको उपशीर्षक"
+  },
+  "@emailLabel": {
+    "description": "इमेल इनपुट फिल्ड लेबल"
+  },
+  "@passwordLabel": {
+    "description": "पासवर्ड इनपुट फिल्ड लेबल"
+  },
+  "@required": {
+    "description": "आवश्यक फिल्ड भ्यालिडेसन संदेश"
+  },
+  "@email": {
+    "description": "इमेल फिल्ड लेबल"
+  },
+  "@submit": {
+    "description": "पेश गर्ने बटनको टेक्स्ट"
+  }
+}

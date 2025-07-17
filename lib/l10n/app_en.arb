@@ -1,7 +1,82 @@
 {
   "@@locale": "en",
   "hello": "Hello",
+  "themeVisualizer": "Theme Visualizer",
+  "currentLanguage": "Current language: English",
+  "switchToSpanish": "Switch to Spanish",
+  "lightMode": "Light Mode",
+  "darkMode": "Dark Mode",
+  "colorScheme": "Color Scheme",
+  "typography": "Typography",
+  "components": "Components",
+  "primary": "Primary",
+  "primaryContainer": "Primary Container",
+  "secondary": "Secondary",
+  "secondaryContainer": "Secondary Container",
+  "surface": "Surface",
+  "surfaceVariant": "Surface Variant",
+  "background": "Background",
+  "error": "Error",
+  "elevatedButton": "Elevated Button",
+  "filledButton": "Filled Button",
+  "outlinedButton": "Outlined Button",
+  "textButton": "Text Button",
+  "switchText": "Switch",
+  "textField": "Text Field",
+  "card": "Card",
+  
+  "noAccount": "Don't have an account?",
+  "getStarted": "Get Started",
+  "lmsTitle": "LMS",
+  "loginTitle": "Login",
+  "loginSubtitle": "Free forever. No credit card required",
+  "emailLabel": "Email",
+  "passwordLabel": "Password",
+  "backButton": "Go back",
+  "required": "Required",
+  "email": "Email",
+  "submit": "Submit",
+
   "@hello": {
     "description": "A greeting"
+  },
+  "@themeVisualizer": {
+    "description": "Title of the theme visualization screen"
+  },
+  "@currentLanguage": {
+    "description": "Label showing current language"
+  },
+  "@noAccount": {
+    "description": "Message shown when user doesn't have an account"
+  },
+  "@getStarted": {
+    "description": "Registration button text"
+  },
+  "@lmsTitle": {
+    "description": "Application title"
+  },
+  "@loginTitle": {
+    "description": "Login page title"
+  },
+  "@loginSubtitle": {
+    "description": "Login page subtitle"
+  },
+  "@emailLabel": {
+    "description": "Email input field label"
+  },
+  "@passwordLabel": {
+    "description": "Password input field label"
+  },
+  "@backButton": {
+    "description": "Back button text"
+  },
+  "@required": {
+    "description": "Required field validation message"
+  },
+  "@email": {
+    "description": "Email field label"
+  },
+  "@submit": {
+    "description": "Submit button text"
   }
 }
