@@ -137,13 +137,13 @@ class ThemeVisualizerPage extends StatelessWidget {
             ),
             _buildColorTile(
               l10n?.surfaceVariant ?? 'Surface Variant',
-              colorScheme.surfaceVariant,
+              colorScheme.surfaceContainerHighest,
               colorScheme.onSurface,
             ),
             _buildColorTile(
               l10n?.background ?? 'Background',
-              colorScheme.background,
-              colorScheme.onBackground,
+              colorScheme.surface,
+              colorScheme.onSurface,
             ),
             _buildColorTile(
               l10n?.error ?? 'Error',

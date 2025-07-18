@@ -11,7 +11,7 @@ class CustomInputField extends StatelessWidget {
   final String? Function(String?)? validator;
 
   const CustomInputField({
-    Key? key,
+    super.key,
     this.labelText = "Input",
     this.prefixIcon = const Icon(Icons.input),
     this.borderRadius = 8.0,
@@ -20,7 +20,7 @@ class CustomInputField extends StatelessWidget {
     this.readOnly = false, // Default to false
     this.onTap, // Callback when tapped (useful for read-only fields)
     this.validator
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
